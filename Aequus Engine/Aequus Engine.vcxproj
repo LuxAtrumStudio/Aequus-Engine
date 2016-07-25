@@ -114,12 +114,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Aequus Files\Aequus Core.cpp" />
     <ClCompile Include="Conscientia Files\Concero.cpp" />
     <ClCompile Include="Conscientia Files\Conscientia.cpp" />
     <ClCompile Include="Conscientia Files\Logging.cpp" />
     <ClCompile Include="Core.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Aequus Files\Aequus Core.h" />
+    <ClInclude Include="Aequus Files\Aequus Headers.h" />
     <ClInclude Include="Conscientia Files\Concero.h" />
     <ClInclude Include="Conscientia Files\Conscientia Headers.h" />
     <ClInclude Include="Conscientia Files\Conscientia.h" />

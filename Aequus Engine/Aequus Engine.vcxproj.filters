@@ -5,10 +5,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -21,6 +17,22 @@
     </Filter>
     <Filter Include="Conscientia Files\Header FIles">
       <UniqueIdentifier>{464725c6-a064-4160-866f-eb7476d07bc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aequus Files">
+      <UniqueIdentifier>{c3917453-a862-4bf1-a4ee-be1c1afacd48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aequus Files\Header Files">
+      <UniqueIdentifier>{dbbb3b75-3d03-4819-894e-5c9f3224c958}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aequus Files\Source Files">
+      <UniqueIdentifier>{36987f7d-a56f-42c3-b70f-693fa5fa0207}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Engine Headers">
+      <UniqueIdentifier>{569b6e93-9f23-4d29-a4e3-9f9ffa58090f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -36,6 +48,9 @@
     <ClCompile Include="Conscientia Files\Logging.cpp">
       <Filter>Conscientia Files\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Aequus Files\Aequus Core.cpp">
+      <Filter>Aequus Files\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Conscientia Files\Concero.h">
@@ -48,7 +63,13 @@
       <Filter>Conscientia Files\Header FIles</Filter>
     </ClInclude>
     <ClInclude Include="Conscientia Files\Conscientia Headers.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Engine Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Aequus Files\Aequus Headers.h">
+      <Filter>Header Files\Engine Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Aequus Files\Aequus Core.h">
+      <Filter>Aequus Files\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
