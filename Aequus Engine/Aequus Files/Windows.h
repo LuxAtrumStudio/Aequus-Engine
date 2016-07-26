@@ -8,11 +8,14 @@ using namespace std;
 
 class WINDOW
 {
-private:
 public:
-	string windowName = NULL;
+	string windowName;
 	SDL_Window* windowPointer = NULL;
-	SDL_Surface* windowScreenSurfacePointer = NULL;
-	bool GenorateWindow(int positionX, int positionY, int width, int height);
-	void GetWindowSurface();
+	SDL_Surface* screenSurface = NULL;
+	WINDOW();
+	~WINDOW();
+	void GenorateWindow(int posX, int posY, int width, int height);
+	void GetScreenSurface();
+	void TerminateWindow();
+private:
 };

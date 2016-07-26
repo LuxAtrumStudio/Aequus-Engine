@@ -27,14 +27,10 @@ void AEQUUS::InitializeAequus()
 
 void AEQUUS::InitializeNewWindow(string name)
 {
-	LOGGING::LogData("1", "DEV");
 	WINDOW windowDefintion;
-	LOGGING::LogData("2", "DEV");
 	windowDefintion.windowName = name;
-	LOGGING::LogData("3", "DEV");
 	graphicalWindows.push_back(windowDefintion);
-	LOGGING::LogData("4", "DEV");
-	LOGGING::LogSuccess("Initialized " + name + " window", "Aequus Core.cpp/AEQUUS/InitializeNewWindow");
+	LOGGING::LogSuccess("Initialized window " + name, "Aequus Core.cpp/AEQUUS/InitializeNewWindow");
 }
 
 void AEQUUS::GenorateWindow(int pointer, int posX, int posY, int width, int height)
