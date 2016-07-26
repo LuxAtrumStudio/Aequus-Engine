@@ -36,23 +36,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Core.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Conscientia Files\Concero.cpp">
-      <Filter>Conscientia Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Conscientia Files\Conscientia.cpp">
-      <Filter>Conscientia Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Conscientia Files\Logging.cpp">
-      <Filter>Conscientia Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Aequus Files\Aequus Core.cpp">
-      <Filter>Aequus Files\Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
+    <ClInclude Include="Aequus Files\Aequus Core.h">
+      <Filter>Aequus Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Aequus Files\SDL Headers.h">
+      <Filter>Aequus Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Aequus Files\Windows.h">
+      <Filter>Aequus Files\Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Conscientia Files\Concero.h">
       <Filter>Conscientia Files\Header FIles</Filter>
     </ClInclude>
@@ -68,13 +60,35 @@
     <ClInclude Include="Aequus Files\Aequus Headers.h">
       <Filter>Header Files\Engine Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Aequus Files\Aequus Core.h">
-      <Filter>Aequus Files\Header Files</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Aequus Files\Aequus Core.cpp">
+      <Filter>Aequus Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Aequus Files\Windows.cpp">
+      <Filter>Aequus Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Conscientia Files\Concero.cpp">
+      <Filter>Conscientia Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Conscientia Files\Conscientia.cpp">
+      <Filter>Conscientia Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Conscientia Files\Logging.cpp">
+      <Filter>Conscientia Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Conscientia Files\GetPage.py">
       <Filter>Conscientia Files\Source Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Log.log">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
