@@ -10,12 +10,20 @@ class WINDOW
 {
 public:
 	string windowName;
-	SDL_Window* windowPointer = NULL;
-	SDL_Surface* screenSurface = NULL;
 	WINDOW();
 	~WINDOW();
 	void GenorateWindow(int posX, int posY, int width, int height);
-	void GetScreenSurface();
+	void HandleEvent(SDL_Event& SDLEvent);
+	void Focus();
+	void Render();
 	void TerminateWindow();
+
+	void GetSize(int& width, int& height);
+	bool GetBool(int value);
 private:
+	SDL_Window* windowPointer;
+	SDL_Renderer* rendererPointer;
+	int windowID;
+	int windowWidth, windowHeight;
+	bool mouseFocus, keyboardFocus, fullScreen, minimized, shown;
 };
