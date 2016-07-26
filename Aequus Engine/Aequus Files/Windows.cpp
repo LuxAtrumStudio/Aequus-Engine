@@ -28,7 +28,7 @@ WINDOW::~WINDOW()
 
 void WINDOW::GenorateWindow(int posX, int posY, int width, int height)
 {
-	windowPointer = SDL_CreateWindow("SDL Tutorial", posX, posY, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+	windowPointer = SDL_CreateWindow(windowName.c_str(), posX, posY, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 	if (windowPointer == NULL) {
 		LOGGING::LogError("Unable to genorate window " + windowName, "Window.cpp/WINDOW/GenorateWindow");
 	}
@@ -126,7 +126,7 @@ void WINDOW::HandleEvent(SDL_Event & SDLEvent)
 		if (updateCaption == true) {
 			stringstream caption;
 			caption << windowName << windowID << " MouseFocus:" << ((mouseFocus) ? "On" : "Off") << " KeyboardFocus:" << ((keyboardFocus) ? "On" : "Off");
-			SDL_SetWindowTitle(windowPointer, caption.str().c_str());
+			//SDL_SetWindowTitle(windowPointer, caption.str().c_str());
 		}
 	}
 }
@@ -152,6 +152,7 @@ void WINDOW::TerminateWindow()
 {
 	if (windowPointer != NULL) {
 		SDL_DestroyWindow(windowPointer);
+		LOGGING::LogSuccess("Terminated " + windowName, "Windows.cpp/WINDOW/TerminateWindow");
 	}
 	windowPointer = NULL;
 	mouseFocus = false;
