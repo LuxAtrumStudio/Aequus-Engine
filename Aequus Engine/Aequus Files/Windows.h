@@ -9,6 +9,7 @@ using namespace std;
 class WINDOW
 {
 public:
+	vector<TEXTURE> textures;
 	string windowName;
 	WINDOW();
 	~WINDOW();
@@ -20,9 +21,11 @@ public:
 
 	void GetSize(int& width, int& height);
 	bool GetBool(int value);
-private:
+
 	SDL_Window* windowPointer;
 	SDL_Renderer* rendererPointer;
+
+private:
 	int windowID;
 	int windowWidth, windowHeight;
 	bool mouseFocus, keyboardFocus, fullScreen, minimized, shown;

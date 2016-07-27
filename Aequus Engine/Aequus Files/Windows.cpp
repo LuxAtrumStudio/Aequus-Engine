@@ -141,7 +141,10 @@ void WINDOW::Focus()
 
 void WINDOW::Render()
 {
-	if (minimized == true) {
+	if (minimized != true) {
+		for (unsigned int a = 0; a < textures.size(); a++) {
+			textures[a].Render();
+		}
 		SDL_SetRenderDrawColor(rendererPointer, 0xFF, 0xFF, 0xFF, 0xFF);
 		SDL_RenderClear(rendererPointer);
 		SDL_RenderPresent(rendererPointer);

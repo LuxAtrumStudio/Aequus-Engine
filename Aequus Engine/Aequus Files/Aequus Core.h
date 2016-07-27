@@ -6,12 +6,14 @@
 #include "SDL Headers.h"
 using namespace std;
 
+extern vector<WINDOW> graphicalWindows;
 namespace AEQUUS {
 	/*=====>>>>>-----CORE FUNCTIONS-----<<<<<=====*/
 	/*=====>>>>>-----Initialization-----<<<<<=====*/
 	/*>>>>>-----INDIVIDUAL-----<<<<<*/
 	void InitializeSDL();
 	void SetTextureFiltering();
+	void InitializeImageLoading();
 	/*>>>>>-----COMPLEATE-----<<<<<*/
 	void InitializeAequus();
 	/*=====>>>>>-----Run Time-----<<<<<=====*/

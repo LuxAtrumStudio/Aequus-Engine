@@ -8,9 +8,7 @@
 #include "../Conscientia Files/Conscientia Headers.h";
 #include "Aequus Headers.h"
 using namespace std;
-
 vector<WINDOW> graphicalWindows;
-
 int currentGraphicalWindow = -1;
 /*=====>>>>>-----CORE FUNCTIONS-----<<<<<=====*/
 /*=====>>>>>-----Initialization-----<<<<<=====*/
@@ -34,11 +32,23 @@ void AEQUUS::SetTextureFiltering()
 		LOGGING::LogError("Failed to set texture filtering to linear", "Aequus Core.cpp/AEQUUS/SetTextureFiltering");
 	}
 }
+void AEQUUS::InitializeImageLoading()
+{
+	int imgFlags = IMG_INIT_PNG;
+	if (!(IMG_Init(imgFlags) & imgFlags)) {
+		LOGGING::LogError("Failed to initialize image loading", "Aequus Core.cpp/AEQUUS/InitializeImageLoading");
+		printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+	}
+	else {
+		LOGGING::LogSuccess("Initialized image loading", "Aequus Core.cpp/AEQUUS/InitializeImageLoading");
+	}
+}
 /*>>>>>-----COMPLEATE-----<<<<<*/
 void AEQUUS::InitializeAequus()
 {
 	InitializeSDL();
 	SetTextureFiltering();
+	InitializeImageLoading();
 }
 /*=====>>>>>-----Run Time-----<<<<<=====*/
 /*>>>>>-----WINDOWS-----<<<<<*/
@@ -52,6 +62,7 @@ int AEQUUS::FindWindowPointer(string name)
 	}
 	return(0);
 }
+
 int AEQUUS::WindowCount()
 {
 	return graphicalWindows.size();
@@ -123,6 +134,7 @@ void AEQUUS::UpdateAllWindows()
 		UpdateWindow(a);
 	}
 }
+
 bool AEQUUS::CheckAllWindows()
 {
 	bool allWindowsClosed = true;
@@ -134,6 +146,7 @@ bool AEQUUS::CheckAllWindows()
 	}
 	return(allWindowsClosed);
 }
+
 void AEQUUS::EventHandleAllWindows(SDL_Event& SDLEvent)
 {
 	for (unsigned int a = 0; a < graphicalWindows.size(); a++) {

@@ -60,6 +60,9 @@
     <ClInclude Include="Aequus Files\Aequus Headers.h">
       <Filter>Header Files\Engine Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Aequus Files\Texture.h">
+      <Filter>Aequus Files\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Aequus Files\Aequus Core.cpp">
@@ -79,6 +82,9 @@
     </ClCompile>
     <ClCompile Include="Core.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Aequus Files\Texture.cpp">
+      <Filter>Aequus Files\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

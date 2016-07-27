@@ -87,7 +87,7 @@
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -121,6 +121,7 @@
     <ClInclude Include="Aequus Files\Aequus Core.h" />
     <ClInclude Include="Aequus Files\Aequus Headers.h" />
     <ClInclude Include="Aequus Files\SDL Headers.h" />
+    <ClInclude Include="Aequus Files\Texture.h" />
     <ClInclude Include="Aequus Files\Windows.h" />
     <ClInclude Include="Conscientia Files\Concero.h" />
     <ClInclude Include="Conscientia Files\Conscientia Headers.h" />
@@ -129,6 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Aequus Files\Aequus Core.cpp" />
+    <ClCompile Include="Aequus Files\Texture.cpp" />
     <ClCompile Include="Aequus Files\Windows.cpp" />
     <ClCompile Include="Conscientia Files\Concero.cpp" />
     <ClCompile Include="Conscientia Files\Conscientia.cpp" />

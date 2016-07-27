@@ -8,6 +8,10 @@ int main(int argc, char* argv[]) {
 	AEQUUS::InitializeAequus();
 	AEQUUS::InitializeNewWindow("Main");
 	AEQUUS::GenorateWindow(0, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 600, 600);
+	TEXTURE newTexture;
+	graphicalWindows[0].textures.push_back(newTexture);
+	graphicalWindows[0].textures[0].SetRenderer(graphicalWindows[0].rendererPointer);
+	graphicalWindows[0].textures[0].LoadTexture("Test.png");
 	bool quit = false;
 	SDL_Event SDLEvent;
 	while (quit == false) {
@@ -15,13 +19,6 @@ int main(int argc, char* argv[]) {
 			if (SDLEvent.type == SDL_QUIT) {
 				quit = true;
 				AEQUUS::EventHandleAllWindows(SDLEvent);
-			}
-			if (SDLEvent.type == SDL_KEYDOWN) {
-				switch (SDLEvent.key.keysym.sym) {
-				case SDLK_n:
-					AEQUUS::InitializeNewWindow("YAY");
-					AEQUUS::GenorateWindow(AEQUUS::WindowCount() - 1, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 600, 600);
-				}
 			}
 		}
 		AEQUUS::UpdateAllWindows();
