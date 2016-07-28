@@ -4,7 +4,6 @@
 #include <fstream>
 #include <ctime>
 #include "SDL Headers.h"
-using namespace std;
 
 extern vector<WINDOW> graphicalWindows;
 namespace AEQUUS {
@@ -14,6 +13,7 @@ namespace AEQUUS {
 	void InitializeSDL();
 	void SetTextureFiltering();
 	void InitializeImageLoading();
+	void InitializeTTF();
 	/*>>>>>-----COMPLEATE-----<<<<<*/
 	void InitializeAequus();
 	/*=====>>>>>-----Run Time-----<<<<<=====*/

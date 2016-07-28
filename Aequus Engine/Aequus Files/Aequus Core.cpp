@@ -37,10 +37,18 @@ void AEQUUS::InitializeImageLoading()
 	int imgFlags = IMG_INIT_PNG;
 	if (!(IMG_Init(imgFlags) & imgFlags)) {
 		LOGGING::LogError("Failed to initialize image loading", "Aequus Core.cpp/AEQUUS/InitializeImageLoading");
-		printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
 	}
 	else {
 		LOGGING::LogSuccess("Initialized image loading", "Aequus Core.cpp/AEQUUS/InitializeImageLoading");
+	}
+}
+void AEQUUS::InitializeTTF()
+{
+	if (TTF_Init() == -1) {
+		LOGGING::LogError("Failed to initialize TTF", "Aequus Core.cpp/AEQUUS/InitializeTTF");
+	}
+	else {
+		LOGGING::LogSuccess("Initialized TTF", "Aequus Core.cpp/AEQUUS/InitializeTTF");
 	}
 }
 /*>>>>>-----COMPLEATE-----<<<<<*/
@@ -49,6 +57,7 @@ void AEQUUS::InitializeAequus()
 	InitializeSDL();
 	SetTextureFiltering();
 	InitializeImageLoading();
+	InitializeTTF();
 }
 /*=====>>>>>-----Run Time-----<<<<<=====*/
 /*>>>>>-----WINDOWS-----<<<<<*/

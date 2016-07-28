@@ -39,7 +39,7 @@ void WINDOW::GenorateWindow(int posX, int posY, int width, int height)
 		windowWidth = width;
 		windowHeight = height;
 		rendererPointer = SDL_CreateRenderer(windowPointer, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-		if (rendererPointer = NULL) {
+		if (rendererPointer == NULL) {
 			LOGGING::LogError("Could not create renderer for " + windowName, "Windows.cpp/WINDOW/GenorateWindow");
 			SDL_DestroyWindow(windowPointer);
 			windowPointer = NULL;
@@ -142,11 +142,11 @@ void WINDOW::Focus()
 void WINDOW::Render()
 {
 	if (minimized != true) {
+		SDL_SetRenderDrawColor(rendererPointer, 0xFF, 0xFF, 0xFF, 0xFF);
+		SDL_RenderClear(rendererPointer);
 		for (unsigned int a = 0; a < textures.size(); a++) {
 			textures[a].Render();
 		}
-		SDL_SetRenderDrawColor(rendererPointer, 0xFF, 0xFF, 0xFF, 0xFF);
-		SDL_RenderClear(rendererPointer);
 		SDL_RenderPresent(rendererPointer);
 	}
 }
