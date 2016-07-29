@@ -11,6 +11,7 @@ int main(int argc, char* argv[]) {
 	AEQUUS::GenorateWindow(0, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 600, 600);
 	AEQUUS::BindWindow(0);
 	AEQUUS::SetDefaultFont("AlegreyaSans", "", 32, 3, false);
+	AEQUUS::NewButton("Hello World!", "Button.png", 200, 100);
 	bool quit = false;
 	int index = 0;
 	SDL_Event SDLEvent;

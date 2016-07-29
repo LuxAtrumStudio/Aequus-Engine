@@ -53,82 +53,62 @@ void WINDOW::GenorateWindow(int posX, int posY, int width, int height)
 	}
 }
 
-void WINDOW::HandleEvent(SDL_Event & SDLEvent)
+vector<EVENTPOINTER> WINDOW::HandleEvent(SDL_Event & SDLEvent)
 {
+	vector<EVENTPOINTER> events;
 	if (SDLEvent.type == SDL_WINDOWEVENT && SDLEvent.window.windowID == windowID) {
-		bool updateCaption = false;
-		switch (SDLEvent.window.event) {
-			//Window appeared
-		case SDL_WINDOWEVENT_SHOWN:
+		if (SDLEvent.window.event == SDL_WINDOWEVENT_SHOWN) {
 			shown = true;
-			break;
-
-			//Window disappeared
-		case SDL_WINDOWEVENT_HIDDEN:
+		}
+		if (SDLEvent.window.event == SDL_WINDOWEVENT_HIDDEN) {
 			shown = false;
-			break;
-
-			//Get new dimensions and repaint
-		case SDL_WINDOWEVENT_SIZE_CHANGED:
+		}
+		if (SDLEvent.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
 			windowWidth = SDLEvent.window.data1;
 			windowHeight = SDLEvent.window.data2;
 			SDL_RenderPresent(rendererPointer);
-			break;
-
-			//Repaint on expose
-		case SDL_WINDOWEVENT_EXPOSED:
-			SDL_RenderPresent(rendererPointer);
-			break;
-
-			//Mouse enter
-		case SDL_WINDOWEVENT_ENTER:
-			mouseFocus = true;
-			updateCaption = true;
-			break;
-
-			//Mouse exit
-		case SDL_WINDOWEVENT_LEAVE:
-			mouseFocus = false;
-			updateCaption = true;
-			break;
-
-			//Keyboard focus gained
-		case SDL_WINDOWEVENT_FOCUS_GAINED:
-			keyboardFocus = true;
-			updateCaption = true;
-			break;
-
-			//Keyboard focus lost
-		case SDL_WINDOWEVENT_FOCUS_LOST:
-			keyboardFocus = false;
-			updateCaption = true;
-			break;
-
-			//Window minimized
-		case SDL_WINDOWEVENT_MINIMIZED:
-			minimized = true;
-			break;
-
-			//Window maxized
-		case SDL_WINDOWEVENT_MAXIMIZED:
-			minimized = false;
-			break;
-
-			//Window restored
-		case SDL_WINDOWEVENT_RESTORED:
-			minimized = false;
-			break;
-			//Hide on close
-		case SDL_WINDOWEVENT_CLOSE:
-			SDL_HideWindow(windowPointer);
-			break;
 		}
-		if (updateCaption == true) {
-			stringstream caption;
-			caption << windowName << windowID << " MouseFocus:" << ((mouseFocus) ? "On" : "Off") << " KeyboardFocus:" << ((keyboardFocus) ? "On" : "Off");
-			//SDL_SetWindowTitle(windowPointer, caption.str().c_str());
+		if (SDLEvent.window.event == SDL_WINDOWEVENT_EXPOSED) {
+			SDL_RenderPresent(rendererPointer);
+		}
+		if (SDLEvent.window.event == SDL_WINDOWEVENT_ENTER) {
+			mouseFocus = true;
+		}
+		if (SDLEvent.window.event == SDL_WINDOWEVENT_LEAVE) {
+			mouseFocus = false;
+		}
+		if (SDLEvent.window.event == SDL_WINDOWEVENT_FOCUS_GAINED) {
+			keyboardFocus = true;
+		}
+		if (SDLEvent.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
+			keyboardFocus = false;
+		}
+		if (SDLEvent.window.event == SDL_WINDOWEVENT_MINIMIZED) {
+			minimized = true;
+		}
+		if (SDLEvent.window.event == SDL_WINDOWEVENT_MAXIMIZED) {
+			minimized = false;
+		}
+		if (SDLEvent.window.event == SDL_WINDOWEVENT_RESTORED) {
+			minimized = false;
+		}
+		if (SDLEvent.window.event == SDL_WINDOWEVENT_CLOSE) {
+			SDL_HideWindow(windowPointer);
 		}
 	}
+	if (SDLEvent.type == SDL_MOUSEMOTION || SDLEvent.type == SDL_MOUSEBUTTONDOWN || SDLEvent.type == SDL_MOUSEBUTTONUP) {
+		for (unsigned a = 0; a < textures.size(); a++) {
+			if (textures[a].objectType == 3) {
+				if (textures[a].CheckButton(&SDLEvent) == true) {
+					EVENTPOINTER newEvent;
+					newEvent.windowPointer = windowID;
+					newEvent.TexturePointer = a;
+					events.push_back(newEvent);
+				}
+			}
+		}
+	}
+	return(events);
 }
 
 void WINDOW::Focus()

@@ -58,8 +58,10 @@ public:
 	void Render();
 	/*>>>>>-----TERMINATION-----<<<<<*/
 	void TerminateTexture();
+	/*=====>>>>>-----Data-----<<<<<=====*/
+	int objectType;
 private:
-	/*=====>>>>>-----PUBLIC-----<<<<<=====*/
+	/*=====>>>>>-----PRIVATE-----<<<<<=====*/
 	/*=====>>>>>-----Funcitons-----<<<<<=====*/
 	/*=====>>>>>-----Data-----<<<<<=====*/
 	/*>>>>>-----ACTIVE MANIPULATIONS-----<<<<<*/

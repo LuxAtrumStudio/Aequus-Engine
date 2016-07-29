@@ -39,6 +39,7 @@ TEXTURE::TEXTURE()
 	colorCheck = false;
 	clipCheck = false;
 	textUpdate = false;
+	objectType = 0;
 }
 
 TEXTURE::~TEXTURE()
@@ -70,6 +71,7 @@ bool TEXTURE::LoadTexture(string filePath)
 		textureFilePath = filePath;
 	}
 	texturePointer = newTexture;
+	objectType = 1;
 	return(true);
 }
 
@@ -107,6 +109,7 @@ bool TEXTURE::LoadText(string text, double red, double green, double blue)
 			SDL_FreeSurface(textSurface);
 		}
 	}
+	objectType = 2;
 	return (true);
 }
 
@@ -291,6 +294,7 @@ bool TEXTURE::LoadButton(string text, string texturePath, double red, double gre
 	textureFilePath = texturePath;
 	buttonState = 0;
 	SetClip(0, 0, textureWidth, textureHeight);
+	objectType = 3;
 	return(true);
 }
 

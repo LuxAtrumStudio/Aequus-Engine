@@ -46,14 +46,19 @@ namespace AEQUUS {
 	void EventHandleAllWindows(SDL_Event& SDLEvent);
 	/*>>>>>-----TEXTURES-----<<<<<*/
 	/*>>>>>-----Loading-----<<<<<*/
+	/*-----TEXTURES-----*/
 	void NewTexture(string filePath);
+	/*-----TEXT-----*/
 	void NewText(string text);
+	/*------FONT-----*/
 	void SetWeight(int weight);
 	void SetItalic(bool italic);
 	void SetPoint(int point);
 	void SetPath(string path);
 	void SetName(string name);
 	void SetDefaultFont(string fontName, string fontPath, int point, int weight, bool italic);
+	/*-----BUTTON-----*/
+	void NewButton(string text, string filePath, int width, int height);
 	/*>>>>>-----Manipulation-----<<<<<*/
 	void SetPositional(int pointer, int x, int y, double scaleWidth, double scaleHeight, double angle, int flip);
 	void SetColor(int pointer, double red, double green, double blue, double alpha, int blend);

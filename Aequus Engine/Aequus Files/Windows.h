@@ -6,6 +6,10 @@
 #include "SDL Headers.h"
 using namespace std;
 
+struct EVENTPOINTER {
+	int windowPointer, TexturePointer;
+};
+
 class WINDOW
 {
 public:
@@ -14,7 +18,7 @@ public:
 	WINDOW();
 	~WINDOW();
 	void GenorateWindow(int posX, int posY, int width, int height);
-	void HandleEvent(SDL_Event& SDLEvent);
+	vector<EVENTPOINTER> HandleEvent(SDL_Event& SDLEvent);
 	void Focus();
 	void Render();
 	void TerminateWindow();

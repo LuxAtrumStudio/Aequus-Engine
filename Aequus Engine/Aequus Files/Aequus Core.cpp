@@ -214,6 +214,8 @@ void AEQUUS::EventHandleAllWindows(SDL_Event& SDLEvent)
 
 /*>>>>>-----Loading-----<<<<<*/
 
+/*-----TEXTURES-----*/
+
 void AEQUUS::NewTexture(string filePath)
 {
 	TEXTURE newTexture;
@@ -222,6 +224,8 @@ void AEQUUS::NewTexture(string filePath)
 	window->textures[index].SetRenderer(window->rendererPointer);
 	window->textures[index].LoadTexture(filePath);
 }
+
+/*-----TEXT-----*/
 
 void AEQUUS::NewText(string text)
 {
@@ -237,6 +241,8 @@ void AEQUUS::NewText(string text)
 	window->textures[index].LoadFont();
 	window->textures[index].LoadText(text, 0.0, 0.0, 0.0);
 }
+
+/*------FONT-----*/
 
 void AEQUUS::SetWeight(int weight)
 {
@@ -270,6 +276,23 @@ void AEQUUS::SetDefaultFont(string fontName, string fontPath, int point, int wei
 	defaultFont.point = point;
 	defaultFont.weight = weight;
 	defaultFont.italic = italic;
+}
+
+/*-----BUTTON-----*/
+
+void AEQUUS::NewButton(string text, string filePath, int width, int height)
+{
+	TEXTURE newTexture;
+	int index = window->textures.size();
+	window->textures.push_back(newTexture);
+	window->textures[index].SetRenderer(window->rendererPointer);
+	window->textures[index].SetWeight(defaultFont.weight);
+	window->textures[index].SetItalic(defaultFont.italic);
+	window->textures[index].SetPoint(defaultFont.point);
+	window->textures[index].SetPath(defaultFont.fontPath);
+	window->textures[index].SetName(defaultFont.fontName);
+	window->textures[index].LoadFont();
+	window->textures[index].LoadButton(text, filePath, 255, 255, 255, width, height, false);
 }
 
 /*>>>>>-----Manipulation-----<<<<<*/
