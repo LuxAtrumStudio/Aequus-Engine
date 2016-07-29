@@ -32,6 +32,9 @@ public:
 	void SetName(string name);
 	void LoadFontFull(string fontName, string path, int weigth, bool italic, int point);
 	void LoadFont();
+	/*>>>>>-----Advanced Initialization-----<<<<<*/
+	/*-----BUTTON-----*/
+	bool LoadButton(string text, string texturePath, double red, double green, double blue, int width, int height, bool fill);
 	/*>>>>>-----MANIPULATION-----<<<<<*/
 	void SetCheck(int check, bool setting);
 	/*>>>>>-----Translation-----<<<<<*/
@@ -49,6 +52,7 @@ public:
 	void SetTextColor(double red, double green, double blue);
 	void Blend(int type);
 	/*>>>>>-----DATA RETURN-----<<<<<*/
+	bool CheckButton(SDL_Event* mouseEvent);
 	void GetSize(int & width, int & height);
 	/*>>>>>-----DISPLAY-----<<<<<*/
 	void Render();
@@ -74,6 +78,8 @@ private:
 	string fontNameStr, fontWeightStr, fontPathStr;
 	int fontWeight, fontPoint;
 	bool fontItalic;
+	/*>>>>>-----BUTTON DATA-----<<<<<*/
+	int buttonState;
 	/*>>>>>-----SDL DATA-----<<<<<*/
 	SDL_Rect* textureClip;
 	SDL_Rect clip;

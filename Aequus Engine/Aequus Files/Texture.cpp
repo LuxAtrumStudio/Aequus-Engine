@@ -88,7 +88,7 @@ bool TEXTURE::LoadText(string text, double red, double green, double blue)
 		return(false);
 	}
 	else {
-		SDL_Surface* textSurface = TTF_RenderText_Solid(textureFont, text.c_str(), textColor);
+		SDL_Surface* textSurface = TTF_RenderText_Blended(textureFont, text.c_str(), textColor);
 		if (textSurface == NULL) {
 			LOGGING::LogError("Failed to render text surface", "Texture.cpp/TEXTURE/LoadText");
 			printf("Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError());
@@ -209,6 +209,89 @@ void TEXTURE::LoadFont()
 	}
 	fontPath = fontPath + ".ttf";
 	LoadFontDirect(fontPath, fontPoint);
+}
+
+/*>>>>>-----Advanced Initialization-----<<<<<*/
+
+/*-----BUTTON-----*/
+
+bool TEXTURE::LoadButton(string text, string texturePath, double red, double green, double blue, int width, int height, bool fill)
+{
+	SDL_Surface* textureSurface = NULL;
+	SDL_Surface* transferSurface = NULL;
+	SDL_Surface* textSurface = NULL;
+	textureSurface = IMG_Load(texturePath.c_str());
+	if (textureSurface == NULL) {
+		LOGGING::LogError("E1", "DEV");
+	}
+	transferSurface = SDL_CreateRGBSurface(0, width, height, 32, 0, 0, 0, 0);
+	SDL_BlitScaled(textureSurface, NULL, transferSurface, NULL);
+	SDL_FreeSurface(textureSurface);
+	textureSurface = transferSurface;
+	textureWidth = textureSurface->w;
+	textureHeight = textureSurface->h / 4;
+	SDL_Color textColor;
+	textColor.r = 255 * red;
+	textColor.g = 255 * green;
+	textColor.b = 255 * blue;
+	int textWidth, textHeight;
+	TTF_SizeText(textureFont, text.c_str(), &textWidth, &textHeight);
+	bool shrink = false;
+	while (textWidth > width || textHeight > height) {
+		shrink = true;
+		SetPoint(fontPoint - 1);
+		LoadFont();
+		TTF_SizeText(textureFont, text.c_str(), &textWidth, &textHeight);
+	}
+	if (fill == true) {
+		if (shrink == false) {
+			while (textWidth < width || textHeight < height) {
+				SetPoint(fontPoint + 1);
+				LoadFont();
+				TTF_SizeText(textureFont, text.c_str(), &textWidth, &textHeight);
+			}
+		}
+	}
+	textSurface = TTF_RenderText_Blended(textureFont, text.c_str(), textColor);
+	if (textSurface == NULL) {
+		LOGGING::LogError("E2", "DEV");
+	}
+	SDL_Rect buttonSpace;
+	if (textureWidth < textSurface->w) {
+		buttonSpace.x = 0;
+		buttonSpace.w = textureWidth;
+	}
+	else {
+		buttonSpace.x = (textureWidth - textSurface->w) / 2;
+		buttonSpace.w = textSurface->w;
+	}
+	if (textureHeight < textSurface->h) {
+		buttonSpace.y = 0;
+		buttonSpace.h = textureHeight;
+	}
+	else {
+		buttonSpace.y = (textureHeight - textSurface->h) / 2;
+		buttonSpace.h = textSurface->h;
+	}
+	for (int a = 0; a < 4; a++) {
+		SDL_BlitScaled(textSurface, NULL, textureSurface, &buttonSpace);
+		buttonSpace.y = buttonSpace.y + textureHeight;
+	}
+	texturePointer = SDL_CreateTextureFromSurface(rendererPointer, textureSurface);
+	if (texturePointer == NULL) {
+		LOGGING::LogError("Failed to genorate texture from surface " + texturePath, "Texture.cpp/TEXTURE/LoadTexture");
+		printf("Unable to create texture from %s! SDL Error: %s\n", texturePath.c_str(), SDL_GetError());
+		return(false);
+	}
+	else {
+		LOGGING::LogSuccess("Genorated texture from surface " + texturePath, "Texture.cpp/TEXTURE/LoadTexture");
+	}
+	SDL_FreeSurface(textureSurface);
+	SDL_FreeSurface(textSurface);
+	textureFilePath = texturePath;
+	buttonState = 0;
+	SetClip(0, 0, textureWidth, textureHeight);
+	return(true);
 }
 
 /*>>>>>-----MANIPULATION-----<<<<<*/
@@ -357,6 +440,36 @@ void TEXTURE::Blend(int type)
 }
 
 /*>>>>>-----DATA RETURN-----<<<<<*/
+
+bool TEXTURE::CheckButton(SDL_Event * mouseEvent)
+{
+	int x, y;
+	bool inside = true;
+	SDL_GetMouseState(&x, &y);
+	if (x < posX || y < posY || x > posX + textureWidth || y > posY + textureHeight) {
+		inside = false;
+	}
+	if (inside == false && buttonState != 0) {
+		buttonState = 0;
+		SetClip(0, 0, textureWidth, textureHeight);
+	}
+	else if (inside == true) {
+		if (mouseEvent->type == SDL_MOUSEMOTION && buttonState != 1) {
+			buttonState = 1;
+			SetClip(0, textureHeight, textureWidth, textureHeight);
+		}
+		if (mouseEvent->type == SDL_MOUSEBUTTONDOWN && buttonState != 2) {
+			buttonState = 2;
+			SetClip(0, textureHeight * 2, textureWidth, textureHeight);
+		}
+		if (mouseEvent->type == SDL_MOUSEBUTTONUP && buttonState != 3) {
+			buttonState = 3;
+			SetClip(0, textureHeight * 3, textureWidth, textureHeight);
+			return(true);
+		}
+	}
+	return(false);
+}
 
 void TEXTURE::GetSize(int & width, int & height)
 {
