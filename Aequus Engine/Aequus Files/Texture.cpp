@@ -38,6 +38,7 @@ TEXTURE::TEXTURE()
 	flipCheck = false;
 	colorCheck = false;
 	clipCheck = false;
+	textUpdate = false;
 }
 
 TEXTURE::~TEXTURE()
@@ -72,31 +73,39 @@ bool TEXTURE::LoadTexture(string filePath)
 	return(true);
 }
 
-bool TEXTURE::LoadText(string text, double red, double green, double blue, double alpha)
+bool TEXTURE::LoadText(string text, double red, double green, double blue)
 {
-	TerminateTexture();
+	if (textUpdate == false) {
+		TerminateTexture();
+	}
+	textStr = text;
 	SDL_Color textColor;
 	textColor.r = 255 * red;
 	textColor.g = 255 * green;
 	textColor.b = 255 * blue;
-	//textColor.a = 255 * alpha;
-	SDL_Surface* textSurface = TTF_RenderText_Solid(textureFont, text.c_str(), textColor);
-	if (textSurface == NULL) {
-		LOGGING::LogError("Failed to render text surface", "Texture.cpp/TEXTURE/LoadText");
-		printf("Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError());
+	if (textureFont == NULL) {
+		LOGGING::LogWarning("Must initialize font before text", "Texture.cpp/TEXTURE/LoadText");
+		return(false);
 	}
 	else {
-		LOGGING::LogSuccess("Render text surface", "Texture.cpp/TEXTURE/LoadText");
-		texturePointer = SDL_CreateTextureFromSurface(rendererPointer, textSurface);
-		if (texturePointer == NULL) {
-			LOGGING::LogError("Failed to create texture from surface", "Texture.cpp/TEXTURE/LoadText");
+		SDL_Surface* textSurface = TTF_RenderText_Solid(textureFont, text.c_str(), textColor);
+		if (textSurface == NULL) {
+			LOGGING::LogError("Failed to render text surface", "Texture.cpp/TEXTURE/LoadText");
+			printf("Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError());
 		}
 		else {
-			LOGGING::LogSuccess("Created texture from surface", "Texture.cpp/TEXTURE/LoadText");
-			textureWidth = textSurface->w;
-			textureHeight = textSurface->h;
+			LOGGING::LogSuccess("Render text surface", "Texture.cpp/TEXTURE/LoadText");
+			texturePointer = SDL_CreateTextureFromSurface(rendererPointer, textSurface);
+			if (texturePointer == NULL) {
+				LOGGING::LogError("Failed to create texture from surface", "Texture.cpp/TEXTURE/LoadText");
+			}
+			else {
+				LOGGING::LogSuccess("Created texture from surface", "Texture.cpp/TEXTURE/LoadText");
+				textureWidth = textSurface->w;
+				textureHeight = textSurface->h;
+			}
+			SDL_FreeSurface(textSurface);
 		}
-		SDL_FreeSurface(textSurface);
 	}
 	return (true);
 }
@@ -111,6 +120,12 @@ void TEXTURE::SetRenderer(SDL_Renderer * pointer)
 void TEXTURE::LoadFontDirect(string fontPath, int point)
 {
 	textureFont = TTF_OpenFont(fontPath.c_str(), point);
+	if (textureFont == NULL) {
+		LOGGING::LogError("Unable to load " + fontPath, "Texture.cpp/TEXTURE/LoadFontDirect");
+	}
+	else {
+		LOGGING::LogSuccess("Loaded " + fontPath, "Texture.cpp/TEXTURE/LoadFontDirect");
+	}
 }
 
 void TEXTURE::SetWeight(int weight)
@@ -119,22 +134,22 @@ void TEXTURE::SetWeight(int weight)
 	if (weight == 0) {
 		fontWeightStr = "Thin";
 	}
-	if (weight == 0) {
+	if (weight == 1) {
 		fontWeightStr = "Light";
 	}
-	if (weight == 0) {
+	if (weight == 2) {
 		fontWeightStr = "Regular";
 	}
-	if (weight == 0) {
+	if (weight == 3) {
 		fontWeightStr = "Medium";
 	}
-	if (weight == 0) {
+	if (weight == 4) {
 		fontWeightStr = "Bold";
 	}
-	if (weight == 0) {
+	if (weight == 5) {
 		fontWeightStr = "ExtraBold";
 	}
-	if (weight == 0) {
+	if (weight == 6) {
 		fontWeightStr = "Black";
 	}
 }
@@ -183,7 +198,7 @@ void TEXTURE::LoadFontFull(string fontName, string path, int weight, bool italic
 void TEXTURE::LoadFont()
 {
 	string fontPath = fontPathStr + fontNameStr + "/" + fontNameStr;
-	if (fontWeight == 2 || fontItalic == true) {
+	if (fontWeight == 2 && fontItalic == true) {
 		fontPath = fontPath + "-" + "Italic";
 	}
 	else {
@@ -314,6 +329,15 @@ void TEXTURE::SetColor(double red, double green, double blue, double alpha)
 	else {
 		colorCheck = false;
 	}
+}
+
+void TEXTURE::SetTextColor(double red, double green, double blue)
+{
+	textureRed = 255 * red;
+	textureGreen = 255 * green;
+	textureBlue = 255 * blue;
+	LoadText(textStr, red, green, blue);
+	textUpdate = true;
 }
 
 void TEXTURE::Blend(int type)

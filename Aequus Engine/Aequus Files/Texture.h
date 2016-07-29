@@ -6,6 +6,12 @@
 #include "SDL Headers.h"
 using namespace std;
 
+struct FONT {
+	string fontPath, fontName;
+	int point, weight;
+	bool italic;
+};
+
 class TEXTURE
 {
 public:
@@ -15,7 +21,7 @@ public:
 	TEXTURE();
 	~TEXTURE();
 	bool LoadTexture(string filePath);
-	bool LoadText(string text, double red, double green, double blue, double alpha);
+	bool LoadText(string text, double red, double green, double blue);
 	void SetRenderer(SDL_Renderer* pointer);
 	/*>>>>>-----Text Initialization-----<<<<<*/
 	void LoadFontDirect(string fontPath, int point);
@@ -40,6 +46,7 @@ public:
 	void SetRotationPoint(int x, int y);
 	/*>>>>>-----Color Manipulation-----<<<<<*/
 	void SetColor(double red, double green, double blue, double alpha);
+	void SetTextColor(double red, double green, double blue);
 	void Blend(int type);
 	/*>>>>>-----DATA RETURN-----<<<<<*/
 	void GetSize(int & width, int & height);
@@ -57,11 +64,12 @@ private:
 	SDL_Texture* texturePointer;
 	SDL_Renderer* rendererPointer;
 	/*>>>>>-----TEXTURE DATA-----<<<<<*/
-	string textureFilePath;
+	string textureFilePath, textStr;
 	int textureWidth, textureHeight;
 	int posX, posY;
 	double textureScaleWidth, textureScaleHeight, textureAngle;
 	Uint8 textureRed, textureGreen, textureBlue, textureAlpha;
+	bool textUpdate;
 	/*>>>>>-----FONT DATA-----<<<<<*/
 	string fontNameStr, fontWeightStr, fontPathStr;
 	int fontWeight, fontPoint;
