@@ -10,6 +10,9 @@ namespace AEQUUS {
 	extern WINDOW* window;
 	extern int devMode;
 	extern int majorVersion, minorVersion;
+	extern bool mainLoopQuit;
+	extern vector<TextureReturn> objectEvent;
+	extern SDL_Event Event;
 	/*=====>>>>>-----CORE FUNCTIONS-----<<<<<=====*/
 	/*=====>>>>>-----Initialization-----<<<<<=====*/
 	/*>>>>>-----INDIVIDUAL-----<<<<<*/
@@ -40,11 +43,11 @@ namespace AEQUUS {
 	/*-----SINGLE-----*/
 	void UpdateWindow(int pointer);
 	bool CheckWindow(int pointer);
-	void EventHandleWindow(int pointer, SDL_Event& SDLEvent);
+	vector<TextureReturn> EventHandleWindow(int pointer, SDL_Event& SDLEvent);
 	/*-----ALL-----*/
 	void UpdateAllWindows();
 	bool CheckAllWindows();
-	void EventHandleAllWindows(SDL_Event& SDLEvent);
+	vector<TextureReturn> EventHandleAllWindows(SDL_Event& SDLEvent);
 	/*>>>>>-----TEXTURES-----<<<<<*/
 	/*>>>>>-----Loading-----<<<<<*/
 	/*-----TEXTURES-----*/
@@ -66,5 +69,5 @@ namespace AEQUUS {
 	/*=====>>>>>-----WRAPPED FUNCTIONS-----<<<<<=====*/
 	void FullStatup();
 	void FullShutDown();
-	vector<EVENTPOINTER> Frame();
+	void Frame();
 }

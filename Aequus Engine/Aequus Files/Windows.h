@@ -6,8 +6,10 @@
 #include "SDL Headers.h"
 using namespace std;
 
-struct EVENTPOINTER {
-	int windowPointer, TexturePointer;
+struct TextureReturn {
+	int windowPointer;
+	int TexturePointer;
+	int value;
 };
 
 class WINDOW
@@ -18,7 +20,7 @@ public:
 	WINDOW();
 	~WINDOW();
 	void GenorateWindow(int posX, int posY, int width, int height);
-	vector<EVENTPOINTER> HandleEvent(SDL_Event& SDLEvent);
+	vector<TextureReturn> HandleEvent(SDL_Event& SDLEvent);
 	void Focus();
 	void Render();
 	void TerminateWindow();
@@ -28,9 +30,9 @@ public:
 
 	SDL_Window* windowPointer;
 	SDL_Renderer* rendererPointer;
+	int windowWidth, windowHeight;
 
 private:
 	int windowID;
-	int windowWidth, windowHeight;
 	bool mouseFocus, keyboardFocus, fullScreen, minimized, shown;
 };

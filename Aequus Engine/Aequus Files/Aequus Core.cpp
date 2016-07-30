@@ -16,7 +16,10 @@ namespace AEQUUS {
 	WINDOW* window;
 	FONT defaultFont;
 	int devMode = 0;
-	extern int majorVersion = 0, minorVersion = 0;
+	int majorVersion = 0, minorVersion = 0;
+	bool mainLoopQuit = false;
+	vector<TextureReturn> objectEvent;
+	SDL_Event Event;
 }
 
 /*=====>>>>>-----CORE FUNCTIONS-----<<<<<=====*/
@@ -180,9 +183,14 @@ bool AEQUUS::CheckWindow(int pointer)
 	}
 }
 
-void AEQUUS::EventHandleWindow(int pointer, SDL_Event& SDLEvent)
+vector<TextureReturn> AEQUUS::EventHandleWindow(int pointer, SDL_Event& SDLEvent)
 {
-	graphicalWindows[pointer].HandleEvent(SDLEvent);
+	vector<TextureReturn> eventsWindow;
+	eventsWindow = graphicalWindows[pointer].HandleEvent(SDLEvent);
+	for (unsigned a = 0; a < eventsWindow.size(); a++) {
+		eventsWindow[a].windowPointer = a;
+	}
+	return(eventsWindow);
 }
 
 /*-----ALL-----*/
@@ -206,11 +214,16 @@ bool AEQUUS::CheckAllWindows()
 	return(allWindowsClosed);
 }
 
-void AEQUUS::EventHandleAllWindows(SDL_Event& SDLEvent)
+vector<TextureReturn> AEQUUS::EventHandleAllWindows(SDL_Event& SDLEvent)
 {
+	vector<TextureReturn> eventsWindows;
+	vector<TextureReturn> eventsWindow;
 	for (unsigned int a = 0; a < graphicalWindows.size(); a++) {
-		EventHandleWindow(a, SDLEvent);
+		eventsWindow = EventHandleWindow(a, SDLEvent);
+		eventsWindows.reserve(eventsWindow.size());
+		eventsWindows.insert(eventsWindows.end(), eventsWindow.begin(), eventsWindow.end());
 	}
+	return(eventsWindows);
 }
 
 /*>>>>>-----TEXTURES-----<<<<<*/
@@ -320,7 +333,14 @@ void AEQUUS::FullShutDown()
 	TerminateAequus();
 }
 
-vector<EVENTPOINTER> AEQUUS::Frame()
+void AEQUUS::Frame()
 {
-	return vector<EVENTPOINTER>();
+	if (Event.type == SDL_QUIT) {
+		mainLoopQuit = true;
+	}
+	objectEvent = AEQUUS::EventHandleAllWindows(Event);
+	AEQUUS::UpdateAllWindows();
+	if (AEQUUS::CheckAllWindows() == true) {
+		mainLoopQuit = true;
+	}
 }

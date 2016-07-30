@@ -53,9 +53,9 @@ void WINDOW::GenorateWindow(int posX, int posY, int width, int height)
 	}
 }
 
-vector<EVENTPOINTER> WINDOW::HandleEvent(SDL_Event & SDLEvent)
+vector<TextureReturn> WINDOW::HandleEvent(SDL_Event & SDLEvent)
 {
-	vector<EVENTPOINTER> events;
+	vector<TextureReturn> events;
 	if (SDLEvent.type == SDL_WINDOWEVENT && SDLEvent.window.windowID == windowID) {
 		if (SDLEvent.window.event == SDL_WINDOWEVENT_SHOWN) {
 			shown = true;
@@ -96,12 +96,16 @@ vector<EVENTPOINTER> WINDOW::HandleEvent(SDL_Event & SDLEvent)
 			SDL_HideWindow(windowPointer);
 		}
 	}
+	if (SDLEvent.type == SDL_KEYDOWN || SDLEvent.type == SDL_KEYUP) {
+	}
+
 	if (SDLEvent.type == SDL_MOUSEMOTION || SDLEvent.type == SDL_MOUSEBUTTONDOWN || SDLEvent.type == SDL_MOUSEBUTTONUP) {
 		for (unsigned a = 0; a < textures.size(); a++) {
 			if (textures[a].objectType == 3) {
 				if (textures[a].CheckButton(&SDLEvent) == true) {
-					EVENTPOINTER newEvent;
+					TextureReturn newEvent;
 					newEvent.TexturePointer = a;
+					newEvent.value = 1;
 					events.push_back(newEvent);
 				}
 			}

@@ -3,29 +3,29 @@
 #include "Aequus Files\Aequus Headers.h"
 #include "Aequus Files\Aequus Core.h"
 using namespace std;
+using namespace AEQUUS;
 
 int main(int argc, char* argv[]) {
-	bool quit = false;
 	LOGGING::InitializeLogging();
-	AEQUUS::FullStatup();
+	FullStatup();
 	/*Pre Main Loop Code Goes Here*/
-
-	SDL_Event SDLEvent;
-	while (quit == false) {
+	int width = window->windowWidth;
+	int height = window->windowHeight;
+	NewButton("Quit?", "Button.png", width / 2, height / 5);
+	SetPositional(0, window->windowWidth / 4, (window->windowHeight / 5) * 2, 1, 1, 0, 0);
+	while (mainLoopQuit == false) {
 		/*Main Loop Code Goes Here*/
 
-		while (SDL_PollEvent(&SDLEvent) != 0) {
-			if (SDLEvent.type == SDL_QUIT) {
-				quit = true;
+		for (unsigned a = 0; a < objectEvent.size(); a++) {
+			if (objectEvent[a].windowPointer == 0 && objectEvent[a].TexturePointer == 0 && objectEvent[a].value == 1) {
+				mainLoopQuit = true;
 			}
-			AEQUUS::EventHandleAllWindows(SDLEvent);
 		}
-		AEQUUS::UpdateAllWindows();
-		if (AEQUUS::CheckAllWindows() == true) {
-			quit = true;
+		while (SDL_PollEvent(&Event) != 0) {
 		}
+		Frame();
 	}
-	AEQUUS::FullShutDown();
+	FullShutDown();
 	LOGGING::TerminateLogging();
 	return(1);
 }

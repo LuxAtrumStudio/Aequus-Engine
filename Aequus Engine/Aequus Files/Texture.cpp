@@ -129,7 +129,7 @@ bool TEXTURE::LoadButton(string text, string texturePath, double red, double gre
 	SDL_Surface* textSurface = NULL;
 	textureSurface = IMG_Load(texturePath.c_str());
 	if (textureSurface == NULL) {
-		LOGGING::LogError("E1", "DEV");
+		LOGGING::LogError("Failed to genorate surface from " + texturePath, "Texture.cpp/TEXTURE/LoadButton");
 	}
 	transferSurface = SDL_CreateRGBSurface(0, width, height, 32, 0, 0, 0, 0);
 	SDL_BlitScaled(textureSurface, NULL, transferSurface, NULL);
@@ -144,11 +144,11 @@ bool TEXTURE::LoadButton(string text, string texturePath, double red, double gre
 	int textWidth, textHeight;
 	TTF::GetTextSize(fontPointer, text, textWidth, textHeight);
 	bool shrink = false;
-	while (textWidth > width || textHeight > height) {
-		shrink = true;
-		TTF::SetFontPoint(fontPointer, (TTF::fontList[fontPointer].point - 1));
-		TTF::GetTextSize(fontPointer, text, textWidth, textHeight);
-	}
+	//while (textWidth > width || textHeight > height) {
+	//	shrink = true;
+	//	TTF::SetFontPoint(fontPointer, (TTF::fontList[fontPointer].point - 1));
+	//	TTF::GetTextSize(fontPointer, text, textWidth, textHeight);
+	//}
 	if (fill == true) {
 		if (shrink == false) {
 			while (textWidth < width || textHeight < height) {
@@ -159,7 +159,7 @@ bool TEXTURE::LoadButton(string text, string texturePath, double red, double gre
 	}
 	textSurface = TTF_RenderText_Blended(TTF::fontList[fontPointer].fontPointer, text.c_str(), textColor);
 	if (textSurface == NULL) {
-		LOGGING::LogError("E2", "DEV");
+		LOGGING::LogError("Failed to genorate surface from text", "Texture.cpp/TEXTURE/LoadButton");
 	}
 	SDL_Rect buttonSpace;
 	if (textureWidth < textSurface->w) {
@@ -184,11 +184,12 @@ bool TEXTURE::LoadButton(string text, string texturePath, double red, double gre
 	}
 	texturePointer = SDL_CreateTextureFromSurface(rendererPointer, textureSurface);
 	if (texturePointer == NULL) {
-		LOGGING::LogError("Failed to genorate texture from surface " + texturePath, "Texture.cpp/TEXTURE/LoadTexture");
+		string error = SDL_GetError();
+		LOGGING::LogError("Failed to genorate texture for button SDL ERROR:" + error, "Texture.cpp/TEXTURE/LoadButton");
 		return(false);
 	}
 	else {
-		LOGGING::LogSuccess("Genorated texture from surface " + texturePath, "Texture.cpp/TEXTURE/LoadTexture");
+		LOGGING::LogSuccess("Genorated texture for button", "Texture.cpp/TEXTURE/LoadButton");
 	}
 	SDL_FreeSurface(textureSurface);
 	SDL_FreeSurface(textSurface);
