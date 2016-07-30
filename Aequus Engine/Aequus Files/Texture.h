@@ -6,12 +6,6 @@
 #include "SDL Headers.h"
 using namespace std;
 
-struct FONT {
-	string fontPath, fontName;
-	int point, weight;
-	bool italic;
-};
-
 class TEXTURE
 {
 public:

@@ -120,6 +120,7 @@
   <ItemGroup>
     <ClInclude Include="Aequus Files\Aequus Core.h" />
     <ClInclude Include="Aequus Files\Aequus Headers.h" />
+    <ClInclude Include="Aequus Files\Font.h" />
     <ClInclude Include="Aequus Files\SDL Headers.h" />
     <ClInclude Include="Aequus Files\Texture.h" />
     <ClInclude Include="Aequus Files\Windows.h" />
@@ -130,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Aequus Files\Aequus Core.cpp" />
+    <ClCompile Include="Aequus Files\Font.cpp" />
     <ClCompile Include="Aequus Files\Texture.cpp" />
     <ClCompile Include="Aequus Files\Windows.cpp" />
     <ClCompile Include="Conscientia Files\Concero.cpp" />

@@ -243,7 +243,5 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
-/Aequus Engine/OpenSans
-/Aequus Engine/AlegreyaSans
-/Aequus Engine/AlegreyaSansSC
-/Aequus Engine/PressStart2P
+/Aequus Engine/Fonts/Roboto
+/Aequus Engine/Fonts/Open_Sans
