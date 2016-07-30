@@ -23,10 +23,6 @@ int currentBuffer = 1;
 HANDLE loadBuffer, displayBuffer;
 _CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
 
-struct luxCode {
-	vector<string> lines;
-};
-
 /*=====>>>>>-----ADVANCED DATA-----<<<<<=====*/
 /*=====>>>>>-----Global-----<<<<<=====*/
 /*>>>>>-----FUNCTIONS-----<<<<<*/
@@ -328,7 +324,7 @@ float CONSCIENTIA::Gfloat() {
 /*-----POINTER-----*/
 void CONSCIENTIA::Print(int pointer, string str) {
 	for (int a = 0; a < str.size(); a++) {
-		if (str[a] == '/') {
+		if (str[a] == '\\') {
 			int b = a + 1;
 			if (str[b] == 'n') {
 				windows[pointer].cursorY++;
@@ -342,7 +338,7 @@ void CONSCIENTIA::Print(int pointer, string str) {
 				a = a + 2;
 			}
 		}
-		else if (str[a] != '/') {
+		else if (str[a] != '\\') {
 			if (windows[pointer].border == false) {
 				if (windows[pointer].cursorX >= windows[pointer].sizeX) {
 					windows[pointer].cursorX = 0;
@@ -422,7 +418,7 @@ string CONSCIENTIA::Menu(string menuFileDirectory, int posX, int posY, int sizeX
 	bool run = true, update = true;
 	int in = -1;
 	menuHierarchy menuStruct;
-	menuStruct = LoadHierarchyFile(menuFileDirectory);
+	menuStruct = LUXLECTOR::LoadHierarchyFile(menuFileDirectory);
 	int windowPointer = windows.size();
 	int pageWidth, listWidth;
 	int currentPage = 0, currentList = 0, currentItem = 0;
@@ -490,100 +486,6 @@ string CONSCIENTIA::Menu(string menuFileDirectory, int posX, int posY, int sizeX
 		}
 	}
 	return("");
-}
-menuHierarchy CONSCIENTIA::LoadHierarchyFile(string fileDirectory)
-{
-	string line;
-	luxCode rawCode;
-	int lineCount = 0, totalLines;
-	int loadBar = -1;
-	ifstream load(fileDirectory.c_str());
-	if (load.is_open()) {
-		load >> lineCount;
-		totalLines = lineCount;
-		if (lineCount >= 50) {
-			loadBar = CONSCIENTIA::InitializeLoadingBar("Loading Menu");
-		}
-		lineCount = 0;
-		getline(load, line);
-		while (getline(load, line)) {
-			rawCode.lines.push_back(line);
-			lineCount++;
-			if (loadBar != -1 && (lineCount % 10) == 0) {
-				CONSCIENTIA::LoadingBar(loadBar, ((double)lineCount / (double)totalLines) * 100);
-			}
-		}
-		load.close();
-		if (loadBar != -1) {
-			CONSCIENTIA::TerminateLoadingBar(loadBar);
-		}
-	}
-	string cleanLine;
-	bool tabSpace;
-	for (unsigned a = 0; a < rawCode.lines.size(); a++) {
-		line = rawCode.lines[a];
-		cleanLine = "";
-		tabSpace = true;
-		for (unsigned b = 0; b < line.size(); b++) {
-			if (tabSpace == true && line[b] != '	') {
-				tabSpace = false;
-			}
-			if (tabSpace == false) {
-				cleanLine = cleanLine + line[b];
-			}
-		}
-		rawCode.lines[a] = cleanLine;
-	}
-	menuHierarchy newHierarchy;
-	menuPage newPage;
-	menuList newList;
-	int currentLevel = 0;
-	string currentLine = "";
-	string codeLine = "";
-	for (unsigned a = 0; a < rawCode.lines.size(); a++) {
-		currentLine = rawCode.lines[a];
-		codeLine = "";
-		if (currentLine[0] == '[') {
-			for (unsigned b = 1; b < currentLine.size() && currentLine[b] != ']'; b++) {
-				codeLine = codeLine + currentLine[b];
-			}
-			if (currentLevel == 0) {
-			}
-			if (currentLevel == 1) {
-			}
-			if (currentLevel == 2) {
-			}
-		}
-		if (currentLine[currentLine.size() - 1] == '{') {
-			if (currentLevel == 0) {
-				newHierarchy.name = codeLine;
-			}
-			if (currentLevel == 1) {
-				newPage.lists.clear();
-				newPage.name = codeLine;
-			}
-			if (currentLevel == 2) {
-				newList.items.clear();
-				newList.name = codeLine;
-			}
-			currentLevel++;
-		}
-		if (currentLine[currentLine.size() - 1] == '}') {
-			currentLevel--;
-			if (currentLevel == 0) {
-			}
-			if (currentLevel == 1) {
-				newHierarchy.pages.push_back(newPage);
-			}
-			if (currentLevel == 2) {
-				newPage.lists.push_back(newList);
-			}
-		}
-		if (currentLine[0] != '[') {
-			newList.items.push_back(currentLine);
-		}
-	}
-	return(newHierarchy);
 }
 void CONSCIENTIA::DisplayMenu(menuHierarchy menu, int currentPage, int currentList, int currentItem) {
 	CClearWindow();

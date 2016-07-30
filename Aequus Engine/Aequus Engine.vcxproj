@@ -128,6 +128,7 @@
     <ClInclude Include="Conscientia Files\Conscientia Headers.h" />
     <ClInclude Include="Conscientia Files\Conscientia.h" />
     <ClInclude Include="Conscientia Files\Logging.h" />
+    <ClInclude Include="Conscientia Files\LuxLector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Aequus Files\Aequus Core.cpp" />
@@ -137,10 +138,12 @@
     <ClCompile Include="Conscientia Files\Concero.cpp" />
     <ClCompile Include="Conscientia Files\Conscientia.cpp" />
     <ClCompile Include="Conscientia Files\Logging.cpp" />
+    <ClCompile Include="Conscientia Files\LuxLector.cpp" />
     <ClCompile Include="Core.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Conscientia Files\GetPage.py" />
+    <None Include="ProgramSettings.lux" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Log.log" />

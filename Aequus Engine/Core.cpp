@@ -5,15 +5,15 @@
 using namespace std;
 
 int main(int argc, char* argv[]) {
-	LOGGING::InitializeLogging();
-	AEQUUS::InitializeAequus();
-	AEQUUS::InitializeNewWindow("Main");
-	AEQUUS::GenorateWindow(0, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 600, 600);
-	AEQUUS::BindWindow(0);
 	bool quit = false;
-	int index = 0;
+	LOGGING::InitializeLogging();
+	AEQUUS::FullStatup();
+	/*Pre Main Loop Code Goes Here*/
+
 	SDL_Event SDLEvent;
 	while (quit == false) {
+		/*Main Loop Code Goes Here*/
+
 		while (SDL_PollEvent(&SDLEvent) != 0) {
 			if (SDLEvent.type == SDL_QUIT) {
 				quit = true;
@@ -25,7 +25,7 @@ int main(int argc, char* argv[]) {
 			quit = true;
 		}
 	}
-	AEQUUS::TerminateAequus();
+	AEQUUS::FullShutDown();
 	LOGGING::TerminateLogging();
 	return(1);
 }

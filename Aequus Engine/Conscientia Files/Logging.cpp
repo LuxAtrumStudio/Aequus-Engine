@@ -34,7 +34,6 @@ void LOGGING::LogError(string log, string location) {
 	if (logOpen == true) {
 		logFile << "[Error]:" + log + "[" + location + "]\n";
 	}
-	cout << "[Error]:" + log + "[" + location + "]\n";
 }
 void LOGGING::LogWarning(string log, string location) {
 	if (logOpen == true) {

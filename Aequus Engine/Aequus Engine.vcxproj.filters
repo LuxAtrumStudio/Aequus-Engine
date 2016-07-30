@@ -66,6 +66,9 @@
     <ClInclude Include="Aequus Files\Font.h">
       <Filter>Aequus Files\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Conscientia Files\LuxLector.h">
+      <Filter>Conscientia Files\Header FIles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Aequus Files\Aequus Core.cpp">
@@ -92,10 +95,16 @@
     <ClCompile Include="Aequus Files\Font.cpp">
       <Filter>Aequus Files\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Conscientia Files\LuxLector.cpp">
+      <Filter>Conscientia Files\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Conscientia Files\GetPage.py">
       <Filter>Conscientia Files\Source Files</Filter>
+    </None>
+    <None Include="ProgramSettings.lux">
+      <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

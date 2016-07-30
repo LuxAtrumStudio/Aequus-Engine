@@ -15,6 +15,8 @@ namespace AEQUUS {
 	vector<WINDOW> graphicalWindows;
 	WINDOW* window;
 	FONT defaultFont;
+	int devMode = 0;
+	extern int majorVersion = 0, minorVersion = 0;
 }
 
 /*=====>>>>>-----CORE FUNCTIONS-----<<<<<=====*/
@@ -289,4 +291,36 @@ void AEQUUS::TerminateSDL()
 void AEQUUS::TerminateAequus()
 {
 	TerminateSDL();
+}
+
+/*=====>>>>>-----WRAPPED FUNCTIONS-----<<<<<=====*/
+void AEQUUS::FullStatup()
+{
+	InitializeAequus();
+	dataFile settingsData = LUXLECTOR::LoadDataFile("ProgramSettings.lux");
+	devMode = settingsData.data[0].intValue;
+	string programName = "";
+	for (unsigned a = 0; a < settingsData.data[1].stringVectorValue.size(); a++) {
+		programName = programName + settingsData.data[1].stringVectorValue[a] + " ";
+	}
+	int width = settingsData.data[2].intValue;
+	int height = settingsData.data[3].intValue;
+	majorVersion = settingsData.data[4].intValue;
+	minorVersion = settingsData.data[5].intValue;
+	if (devMode == 1) {
+		programName = programName + "V:" + to_string(majorVersion) + "." + to_string(minorVersion);
+	}
+	InitializeNewWindow(programName);
+	FGenorateWindow(programName, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height);
+	BindWindowName(programName);
+}
+
+void AEQUUS::FullShutDown()
+{
+	TerminateAequus();
+}
+
+vector<EVENTPOINTER> AEQUUS::Frame()
+{
+	return vector<EVENTPOINTER>();
 }

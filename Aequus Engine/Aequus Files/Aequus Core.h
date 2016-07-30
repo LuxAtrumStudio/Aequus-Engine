@@ -8,6 +8,8 @@
 namespace AEQUUS {
 	extern vector<WINDOW> graphicalWindows;
 	extern WINDOW* window;
+	extern int devMode;
+	extern int majorVersion, minorVersion;
 	/*=====>>>>>-----CORE FUNCTIONS-----<<<<<=====*/
 	/*=====>>>>>-----Initialization-----<<<<<=====*/
 	/*>>>>>-----INDIVIDUAL-----<<<<<*/
@@ -60,4 +62,9 @@ namespace AEQUUS {
 	void TerminateSDL();
 	/*>>>>>-----COMPLEATE-----<<<<<*/
 	void TerminateAequus();
+
+	/*=====>>>>>-----WRAPPED FUNCTIONS-----<<<<<=====*/
+	void FullStatup();
+	void FullShutDown();
+	vector<EVENTPOINTER> Frame();
 }

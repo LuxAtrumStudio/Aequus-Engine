@@ -101,7 +101,6 @@ vector<EVENTPOINTER> WINDOW::HandleEvent(SDL_Event & SDLEvent)
 			if (textures[a].objectType == 3) {
 				if (textures[a].CheckButton(&SDLEvent) == true) {
 					EVENTPOINTER newEvent;
-					newEvent.windowPointer = windowID;
 					newEvent.TexturePointer = a;
 					events.push_back(newEvent);
 				}
