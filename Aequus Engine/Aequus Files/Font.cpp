@@ -117,8 +117,8 @@ void TTF::TerminateAllFonts()
 
 void TTF::SetFontWeight(int pointer, string value)
 {
-	int index;
-	for (unsigned a = 0; a, globalWeightBindings.size(); a++) {
+	int index = 3;
+	for (unsigned a = 0; a < globalWeightBindings.size(); a++) {
 		if (globalWeightBindings[a] == value) {
 			index = a;
 		}
@@ -167,7 +167,9 @@ void TTF::FSetFontItalic(string name, bool value)
 
 void TTF::GetTextSize(int pointer, string text, int & x, int & y)
 {
-	TTF_SizeText(fontList[pointer].fontPointer, text.c_str(), &x, &y);
+	if (fontList[pointer].fontPointer != NULL) {
+		TTF_SizeText(fontList[pointer].fontPointer, text.c_str(), &x, &y);
+	}
 }
 
 void TTF::FGetTextSize(string name, string text, int & x, int & y)
@@ -175,7 +177,7 @@ void TTF::FGetTextSize(string name, string text, int & x, int & y)
 	GetTextSize(GetFontPointer(name), text, x, y);
 }
 
-void TTF::GenFont(FONT font)
+void TTF::GenFont(FONT& font)
 {
 	string directory;
 	directory = font.fontFolderPath + "/" + font.name + "/" + font.name + "-";

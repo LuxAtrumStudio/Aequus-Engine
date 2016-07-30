@@ -18,14 +18,7 @@ public:
 	bool LoadText(string text, double red, double green, double blue);
 	void SetRenderer(SDL_Renderer* pointer);
 	/*>>>>>-----Text Initialization-----<<<<<*/
-	void LoadFontDirect(string fontPath, int point);
-	void SetWeight(int weight);
-	void SetItalic(bool italic);
-	void SetPoint(int point);
-	void SetPath(string path);
-	void SetName(string name);
-	void LoadFontFull(string fontName, string path, int weigth, bool italic, int point);
-	void LoadFont();
+	void SetFont(int pointer);
 	/*>>>>>-----Advanced Initialization-----<<<<<*/
 	/*-----BUTTON-----*/
 	bool LoadButton(string text, string texturePath, double red, double green, double blue, int width, int height, bool fill);
@@ -70,10 +63,7 @@ private:
 	double textureScaleWidth, textureScaleHeight, textureAngle;
 	Uint8 textureRed, textureGreen, textureBlue, textureAlpha;
 	bool textUpdate;
-	/*>>>>>-----FONT DATA-----<<<<<*/
-	string fontNameStr, fontWeightStr, fontPathStr;
-	int fontWeight, fontPoint;
-	bool fontItalic;
+	int fontPointer;
 	/*>>>>>-----BUTTON DATA-----<<<<<*/
 	int buttonState;
 	/*>>>>>-----SDL DATA-----<<<<<*/
@@ -81,5 +71,4 @@ private:
 	SDL_Rect clip;
 	SDL_RendererFlip textureFlip;
 	SDL_Point* textureCenter;
-	TTF_Font* textureFont;
 };

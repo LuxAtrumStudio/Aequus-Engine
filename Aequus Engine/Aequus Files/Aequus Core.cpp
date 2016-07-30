@@ -72,6 +72,7 @@ void AEQUUS::InitializeAequus()
 	SetTextureFiltering();
 	InitializeImageLoading();
 	InitializeTTF();
+	TTF::SetDefaultFont("Fonts");
 	window = NULL;
 }
 
@@ -233,49 +234,8 @@ void AEQUUS::NewText(string text)
 	int index = window->textures.size();
 	window->textures.push_back(newTexture);
 	window->textures[index].SetRenderer(window->rendererPointer);
-	window->textures[index].SetWeight(defaultFont.weight);
-	window->textures[index].SetItalic(defaultFont.italic);
-	window->textures[index].SetPoint(defaultFont.point);
-	window->textures[index].SetPath(defaultFont.fontPath);
-	window->textures[index].SetName(defaultFont.fontName);
-	window->textures[index].LoadFont();
+	window->textures[index].SetFont(0);
 	window->textures[index].LoadText(text, 0.0, 0.0, 0.0);
-}
-
-/*------FONT-----*/
-
-void AEQUUS::SetWeight(int weight)
-{
-	defaultFont.weight = weight;
-}
-
-void AEQUUS::SetItalic(bool italic)
-{
-	defaultFont.italic = italic;
-}
-
-void AEQUUS::SetPoint(int point)
-{
-	defaultFont.point = point;
-}
-
-void AEQUUS::SetPath(string path)
-{
-	defaultFont.fontPath = path;
-}
-
-void AEQUUS::SetName(string name)
-{
-	defaultFont.fontName = name;
-}
-
-void AEQUUS::SetDefaultFont(string fontName, string fontPath, int point, int weight, bool italic)
-{
-	defaultFont.fontName = fontName;
-	defaultFont.fontPath = fontPath;
-	defaultFont.point = point;
-	defaultFont.weight = weight;
-	defaultFont.italic = italic;
 }
 
 /*-----BUTTON-----*/
@@ -286,12 +246,7 @@ void AEQUUS::NewButton(string text, string filePath, int width, int height)
 	int index = window->textures.size();
 	window->textures.push_back(newTexture);
 	window->textures[index].SetRenderer(window->rendererPointer);
-	window->textures[index].SetWeight(defaultFont.weight);
-	window->textures[index].SetItalic(defaultFont.italic);
-	window->textures[index].SetPoint(defaultFont.point);
-	window->textures[index].SetPath(defaultFont.fontPath);
-	window->textures[index].SetName(defaultFont.fontName);
-	window->textures[index].LoadFont();
+	window->textures[index].SetFont(0);
 	window->textures[index].LoadButton(text, filePath, 255, 255, 255, width, height, false);
 }
 

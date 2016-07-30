@@ -8,7 +8,6 @@
 namespace AEQUUS {
 	extern vector<WINDOW> graphicalWindows;
 	extern WINDOW* window;
-	extern FONT defaultFont;
 	/*=====>>>>>-----CORE FUNCTIONS-----<<<<<=====*/
 	/*=====>>>>>-----Initialization-----<<<<<=====*/
 	/*>>>>>-----INDIVIDUAL-----<<<<<*/
@@ -50,13 +49,6 @@ namespace AEQUUS {
 	void NewTexture(string filePath);
 	/*-----TEXT-----*/
 	void NewText(string text);
-	/*------FONT-----*/
-	void SetWeight(int weight);
-	void SetItalic(bool italic);
-	void SetPoint(int point);
-	void SetPath(string path);
-	void SetName(string name);
-	void SetDefaultFont(string fontName, string fontPath, int point, int weight, bool italic);
 	/*-----BUTTON-----*/
 	void NewButton(string text, string filePath, int width, int height);
 	/*>>>>>-----Manipulation-----<<<<<*/

@@ -37,8 +37,8 @@ namespace TTF {
 	void FSetFontWeightInt(string name, int value);
 	void FSetFontPoint(string name, int value);
 	void FSetFontItalic(string name, bool value);
-	void GetTextSize(int pointer, string text, int &x, int &y);
-	void FGetTextSize(string name, string text, int &x, int &y);
+	void GetTextSize(int pointer, string text, int& x, int& y);
+	void FGetTextSize(string name, string text, int& x, int& y);
 
-	void GenFont(FONT font);
+	void GenFont(FONT& font);
 }

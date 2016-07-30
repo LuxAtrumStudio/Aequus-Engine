@@ -32,7 +32,7 @@ TEXTURE::TEXTURE()
 	textureClip = NULL;
 	textureCenter = NULL;
 	textureFlip = SDL_FLIP_NONE;
-	textureFont = NULL;
+	fontPointer = 0;
 	scaleCheck = false;
 	rotateCheck = false;
 	flipCheck = false;
@@ -85,30 +85,24 @@ bool TEXTURE::LoadText(string text, double red, double green, double blue)
 	textColor.r = 255 * red;
 	textColor.g = 255 * green;
 	textColor.b = 255 * blue;
-	if (textureFont == NULL) {
-		LOGGING::LogWarning("Must initialize font before text", "Texture.cpp/TEXTURE/LoadText");
-		return(false);
+	SDL_Surface* textSurface = TTF_RenderText_Blended(TTF::fontList[fontPointer].fontPointer, text.c_str(), textColor);
+	if (textSurface == NULL) {
+		LOGGING::LogError("Failed to render text surface", "Texture.cpp/TEXTURE/LoadText");
 	}
 	else {
-		SDL_Surface* textSurface = TTF_RenderText_Blended(textureFont, text.c_str(), textColor);
-		if (textSurface == NULL) {
-			LOGGING::LogError("Failed to render text surface", "Texture.cpp/TEXTURE/LoadText");
-			printf("Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError());
+		LOGGING::LogSuccess("Render text surface", "Texture.cpp/TEXTURE/LoadText");
+		texturePointer = SDL_CreateTextureFromSurface(rendererPointer, textSurface);
+		if (texturePointer == NULL) {
+			LOGGING::LogError("Failed to create texture from surface", "Texture.cpp/TEXTURE/LoadText");
 		}
 		else {
-			LOGGING::LogSuccess("Render text surface", "Texture.cpp/TEXTURE/LoadText");
-			texturePointer = SDL_CreateTextureFromSurface(rendererPointer, textSurface);
-			if (texturePointer == NULL) {
-				LOGGING::LogError("Failed to create texture from surface", "Texture.cpp/TEXTURE/LoadText");
-			}
-			else {
-				LOGGING::LogSuccess("Created texture from surface", "Texture.cpp/TEXTURE/LoadText");
-				textureWidth = textSurface->w;
-				textureHeight = textSurface->h;
-			}
-			SDL_FreeSurface(textSurface);
+			LOGGING::LogSuccess("Created texture from surface", "Texture.cpp/TEXTURE/LoadText");
+			textureWidth = textSurface->w;
+			textureHeight = textSurface->h;
 		}
+		SDL_FreeSurface(textSurface);
 	}
+
 	objectType = 2;
 	return (true);
 }
@@ -120,98 +114,8 @@ void TEXTURE::SetRenderer(SDL_Renderer * pointer)
 
 /*>>>>>-----Text Initialization-----<<<<<*/
 
-void TEXTURE::LoadFontDirect(string fontPath, int point)
-{
-	textureFont = TTF_OpenFont(fontPath.c_str(), point);
-	if (textureFont == NULL) {
-		LOGGING::LogError("Unable to load " + fontPath, "Texture.cpp/TEXTURE/LoadFontDirect");
-	}
-	else {
-		LOGGING::LogSuccess("Loaded " + fontPath, "Texture.cpp/TEXTURE/LoadFontDirect");
-	}
-}
-
-void TEXTURE::SetWeight(int weight)
-{
-	fontWeight = weight;
-	if (weight == 0) {
-		fontWeightStr = "Thin";
-	}
-	if (weight == 1) {
-		fontWeightStr = "Light";
-	}
-	if (weight == 2) {
-		fontWeightStr = "Regular";
-	}
-	if (weight == 3) {
-		fontWeightStr = "Medium";
-	}
-	if (weight == 4) {
-		fontWeightStr = "Bold";
-	}
-	if (weight == 5) {
-		fontWeightStr = "ExtraBold";
-	}
-	if (weight == 6) {
-		fontWeightStr = "Black";
-	}
-}
-
-void TEXTURE::SetItalic(bool italic)
-{
-	fontItalic = italic;
-}
-
-void TEXTURE::SetPoint(int point)
-{
-	fontPoint = point;
-}
-
-void TEXTURE::SetPath(string path)
-{
-	fontPathStr = path;
-}
-
-void TEXTURE::SetName(string name)
-{
-	fontNameStr = name;
-}
-
-void TEXTURE::LoadFontFull(string fontName, string path, int weight, bool italic, int point)
-{
-	string fontPath = path + fontName + "/" + fontName;
-	SetWeight(weight);
-	SetItalic(italic);
-	SetPoint(point);
-	SetPath(path);
-	SetName(fontName);
-	if (weight == 2 || italic == true) {
-		fontPath = fontPath + "-" + "Italic";
-	}
-	else {
-		fontPath = fontPath + "-" + fontWeightStr;
-		if (fontItalic == true) {
-			fontPath = fontPath + "Italic";
-		}
-	}
-	fontPath = fontPath + ".ttf";
-	LoadFontDirect(fontPath, fontPoint);
-}
-
-void TEXTURE::LoadFont()
-{
-	string fontPath = fontPathStr + fontNameStr + "/" + fontNameStr;
-	if (fontWeight == 2 && fontItalic == true) {
-		fontPath = fontPath + "-" + "Italic";
-	}
-	else {
-		fontPath = fontPath + "-" + fontWeightStr;
-		if (fontItalic == true) {
-			fontPath = fontPath + "Italic";
-		}
-	}
-	fontPath = fontPath + ".ttf";
-	LoadFontDirect(fontPath, fontPoint);
+void TEXTURE::SetFont(int pointer) {
+	fontPointer = pointer;
 }
 
 /*>>>>>-----Advanced Initialization-----<<<<<*/
@@ -238,24 +142,22 @@ bool TEXTURE::LoadButton(string text, string texturePath, double red, double gre
 	textColor.g = 255 * green;
 	textColor.b = 255 * blue;
 	int textWidth, textHeight;
-	TTF_SizeText(textureFont, text.c_str(), &textWidth, &textHeight);
+	TTF::GetTextSize(fontPointer, text, textWidth, textHeight);
 	bool shrink = false;
 	while (textWidth > width || textHeight > height) {
 		shrink = true;
-		SetPoint(fontPoint - 1);
-		LoadFont();
-		TTF_SizeText(textureFont, text.c_str(), &textWidth, &textHeight);
+		TTF::SetFontPoint(fontPointer, (TTF::fontList[fontPointer].point - 1));
+		TTF::GetTextSize(fontPointer, text, textWidth, textHeight);
 	}
 	if (fill == true) {
 		if (shrink == false) {
 			while (textWidth < width || textHeight < height) {
-				SetPoint(fontPoint + 1);
-				LoadFont();
-				TTF_SizeText(textureFont, text.c_str(), &textWidth, &textHeight);
+				TTF::SetFontPoint(fontPointer, (TTF::fontList[fontPointer].point + 1));
+				TTF::GetTextSize(fontPointer, text, textWidth, textHeight);
 			}
 		}
 	}
-	textSurface = TTF_RenderText_Blended(textureFont, text.c_str(), textColor);
+	textSurface = TTF_RenderText_Blended(TTF::fontList[fontPointer].fontPointer, text.c_str(), textColor);
 	if (textSurface == NULL) {
 		LOGGING::LogError("E2", "DEV");
 	}
@@ -283,7 +185,6 @@ bool TEXTURE::LoadButton(string text, string texturePath, double red, double gre
 	texturePointer = SDL_CreateTextureFromSurface(rendererPointer, textureSurface);
 	if (texturePointer == NULL) {
 		LOGGING::LogError("Failed to genorate texture from surface " + texturePath, "Texture.cpp/TEXTURE/LoadTexture");
-		printf("Unable to create texture from %s! SDL Error: %s\n", texturePath.c_str(), SDL_GetError());
 		return(false);
 	}
 	else {
