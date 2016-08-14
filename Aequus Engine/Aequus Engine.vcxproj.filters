@@ -9,15 +9,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Conscientia Files">
-      <UniqueIdentifier>{da064733-2f35-434c-97de-7cc0bf12d701}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Conscientia Files\Source Files">
-      <UniqueIdentifier>{62e4b497-7e70-4797-98d6-516061a3ea4b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Conscientia Files\Header FIles">
-      <UniqueIdentifier>{464725c6-a064-4160-866f-eb7476d07bc1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Aequus Files">
       <UniqueIdentifier>{c3917453-a862-4bf1-a4ee-be1c1afacd48}</UniqueIdentifier>
     </Filter>
@@ -31,80 +22,53 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Header Files\Engine Headers">
-      <UniqueIdentifier>{569b6e93-9f23-4d29-a4e3-9f9ffa58090f}</UniqueIdentifier>
+    <Filter Include="Pessum">
+      <UniqueIdentifier>{60ef53e2-df36-41b6-892c-0571d4959334}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pessum\Header Files">
+      <UniqueIdentifier>{9b95d697-5fe3-4fe2-be6d-868e3496f663}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pessum\Source Files">
+      <UniqueIdentifier>{df4b8e5f-8696-442f-b3d3-280d46edaf37}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Aequus Files\Aequus Core.h">
-      <Filter>Aequus Files\Header Files</Filter>
+    <ClInclude Include="Pessum\logging.h">
+      <Filter>Pessum\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Aequus Files\SDL Headers.h">
-      <Filter>Aequus Files\Header Files</Filter>
+    <ClInclude Include="Pessum\lux_reader.h">
+      <Filter>Pessum\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Aequus Files\Windows.h">
-      <Filter>Aequus Files\Header Files</Filter>
+    <ClInclude Include="Pessum\pessum_core.h">
+      <Filter>Pessum\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Conscientia Files\Concero.h">
-      <Filter>Conscientia Files\Header FIles</Filter>
-    </ClInclude>
-    <ClInclude Include="Conscientia Files\Conscientia.h">
-      <Filter>Conscientia Files\Header FIles</Filter>
-    </ClInclude>
-    <ClInclude Include="Conscientia Files\Logging.h">
-      <Filter>Conscientia Files\Header FIles</Filter>
-    </ClInclude>
-    <ClInclude Include="Conscientia Files\Conscientia Headers.h">
-      <Filter>Header Files\Engine Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Aequus Files\Aequus Headers.h">
-      <Filter>Header Files\Engine Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Aequus Files\Texture.h">
-      <Filter>Aequus Files\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Aequus Files\Font.h">
-      <Filter>Aequus Files\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Conscientia Files\LuxLector.h">
-      <Filter>Conscientia Files\Header FIles</Filter>
+    <ClInclude Include="Pessum\rest.h">
+      <Filter>Pessum\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Aequus Files\Aequus Core.cpp">
-      <Filter>Aequus Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Aequus Files\Windows.cpp">
-      <Filter>Aequus Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Conscientia Files\Concero.cpp">
-      <Filter>Conscientia Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Conscientia Files\Conscientia.cpp">
-      <Filter>Conscientia Files\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Conscientia Files\Logging.cpp">
-      <Filter>Conscientia Files\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Core.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Aequus Files\Texture.cpp">
-      <Filter>Aequus Files\Source Files</Filter>
+    <ClCompile Include="Pessum\logging.cpp">
+      <Filter>Pessum\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Aequus Files\Font.cpp">
-      <Filter>Aequus Files\Source Files</Filter>
+    <ClCompile Include="Pessum\lux_reader.cpp">
+      <Filter>Pessum\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Conscientia Files\LuxLector.cpp">
-      <Filter>Conscientia Files\Source Files</Filter>
+    <ClCompile Include="Pessum\pessum_core.cpp">
+      <Filter>Pessum\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Pessum\rest.cpp">
+      <Filter>Pessum\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Conscientia Files\GetPage.py">
-      <Filter>Conscientia Files\Source Files</Filter>
-    </None>
     <None Include="ProgramSettings.lux">
       <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Pessum\get_page.py">
+      <Filter>Pessum\Source Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

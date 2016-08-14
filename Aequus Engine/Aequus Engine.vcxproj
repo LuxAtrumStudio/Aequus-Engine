@@ -84,7 +84,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -118,31 +118,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Aequus Files\Aequus Core.h" />
-    <ClInclude Include="Aequus Files\Aequus Headers.h" />
-    <ClInclude Include="Aequus Files\Font.h" />
-    <ClInclude Include="Aequus Files\SDL Headers.h" />
-    <ClInclude Include="Aequus Files\Texture.h" />
-    <ClInclude Include="Aequus Files\Windows.h" />
-    <ClInclude Include="Conscientia Files\Concero.h" />
-    <ClInclude Include="Conscientia Files\Conscientia Headers.h" />
-    <ClInclude Include="Conscientia Files\Conscientia.h" />
-    <ClInclude Include="Conscientia Files\Logging.h" />
-    <ClInclude Include="Conscientia Files\LuxLector.h" />
+    <ClInclude Include="Pessum\logging.h" />
+    <ClInclude Include="Pessum\lux_reader.h" />
+    <ClInclude Include="Pessum\pessum_core.h" />
+    <ClInclude Include="Pessum\rest.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Aequus Files\Aequus Core.cpp" />
-    <ClCompile Include="Aequus Files\Font.cpp" />
-    <ClCompile Include="Aequus Files\Texture.cpp" />
-    <ClCompile Include="Aequus Files\Windows.cpp" />
-    <ClCompile Include="Conscientia Files\Concero.cpp" />
-    <ClCompile Include="Conscientia Files\Conscientia.cpp" />
-    <ClCompile Include="Conscientia Files\Logging.cpp" />
-    <ClCompile Include="Conscientia Files\LuxLector.cpp" />
     <ClCompile Include="Core.cpp" />
+    <ClCompile Include="Pessum\logging.cpp" />
+    <ClCompile Include="Pessum\lux_reader.cpp" />
+    <ClCompile Include="Pessum\pessum_core.cpp" />
+    <ClCompile Include="Pessum\rest.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Conscientia Files\GetPage.py" />
+    <None Include="Pessum\get_page.py" />
     <None Include="ProgramSettings.lux" />
   </ItemGroup>
   <ItemGroup>
